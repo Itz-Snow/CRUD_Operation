@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import {Prisma} from '@prisma/client'
 import { DatabaseService } from 'src/database/database.service';
 
@@ -9,33 +9,40 @@ export class UsersService {
   // The constructor injects the DatabaseService, which is used to interact with the database.
   constructor(private readonly databaseService: DatabaseService) {}
 
-  //async methods are used to handle asynchronous operations, such as database queries.
+  // async methods are used to handle databse query
   // The create method accepts a DTO for creating a user.
-  async create(createUserDto: Prisma.UserInfoTBCreateInput) {
-
-    // This method uses the database service to create a new user in the userInfoTB table.
-    return this.databaseService.userInfoTB.create({
-      // The data property contains the user information to be created.
+ async create(createUserDto: Prisma.UserInfoTBCreateInput) {
+  try {
+    return await this.databaseService.userInfoTB.create({
       data: createUserDto,
     });
+  } catch (error) {
+    if (error.code === 'P2002') {
+      throw new ConflictException('A user with that email already exists');
+    }
+    throw error;
   }
-
+}
   // The findAll method retrieves all users from the database.
   // It includes related data such as contact, address, and academics.
   async findAll() {
-    return this.databaseService.userInfoTB.findMany({
+    const user = await this.databaseService.userInfoTB.findMany({
       // include: { 
       //   contact: true, 
       //   address: true, 
       //   academics: true 
       // } 
     })
+    if (!user || user.length === 0) {
+      throw new NotFoundException(`No users found`)
+    }
+    return user
   }
 
   // The findOne method retrieves a user by their ID.
   // It includes related data such as contact, address, and academics.
   async findOne(id: number) {
-    return this.databaseService.userInfoTB.findUnique({
+    const user =  await this.databaseService.userInfoTB.findUnique({
       where: { id, },
       // include: { 
       //   contact: true, 
@@ -43,20 +50,39 @@ export class UsersService {
       //   academics: true 
       // } 
     })
+    if (!user) {
+      throw new NotFoundException(`User not found`)
+    }
+    return user
   }
 
   // The update method updates a user's information based on their ID.
   async update(id: number, updateUserDto: Prisma.UserInfoTBUpdateInput) {
-    return this.databaseService.userInfoTB.update({
-      where: { id, },
+  try {
+    return await this.databaseService.userInfoTB.update({
+      where: { id },
       data: updateUserDto,
-    })
+    });
+  } catch (error) {
+    if (error.code === 'P2025') { // Record to update not found
+      throw new NotFoundException(`User with ID ${id} not found`)
+    }
+    throw error;
   }
+}
 
   // The remove method deletes a user based on their ID.
   async remove(id: number) {
-    return this.databaseService.userInfoTB.delete({
-       where: { id } 
-      });
+  try {
+    return await this.databaseService.userInfoTB.delete({
+      where: { id },
+    });
+  } catch (error) {
+    if (error.code === 'P2025') {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    throw error;
   }
+}
+
 }

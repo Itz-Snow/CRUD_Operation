@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Prisma, PrismaClient } from '@prisma/client';
+import { MyLoggerService } from 'src/my-logger/my-logger.service';
 
 // This controller handles user-related requests.
 @Controller('users')
@@ -9,6 +10,9 @@ export class UsersController {
   //constructor is used to inject the UsersService into this controller.
   // The UsersService contains the business logic for managing users
   constructor(private readonly usersService: UsersService) {}
+
+  // The MyLoggerService is injected to log messages with a specific context.
+  private readonly logger = new MyLoggerService(UsersController.name);
 
   // The create method accepts a DTO for creating a user.
   // The DTO is of type Prisma.UserInfoTBCreateInput, which is defined in the Prisma schema.
@@ -20,6 +24,8 @@ export class UsersController {
   // The findAll method retrieves all users.
   @Get()
   findAll() {
+    //
+    this.logger.log('Retrieving all users', UsersController.name);
     return this.usersService.findAll();
   }
 
