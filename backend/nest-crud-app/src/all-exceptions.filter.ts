@@ -17,7 +17,12 @@ type MyResponseObj = {
 export class AllExceptionsFilter extends BaseExceptionFilter { 
     private readonly logger = new MyLoggerService(AllExceptionsFilter.name)
 
+    // The catch method is called when an exception is thrown.
+    // It takes the exception and the host as parameters.
+    // The host provides access to the request and response objects.
+    // It constructs a response object with the status code, timestamp, path, and response message
     catch(exception: any, host: ArgumentsHost): void {
+        // Get the context of the request and response
         const ctx = host.switchToHttp()
         const response = ctx.getResponse<Response>()
         const request = ctx.getRequest<Request>()
@@ -48,7 +53,8 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
             MyResponseObj.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
             MyResponseObj.response = 'Internal server error'
         }  
-        // Log the error message using the custom logger service
+        // Send the response back to the client
+        // The response includes the status code, timestamp, path, and response message
         response
             .status(MyResponseObj.statusCode)
             .json(MyResponseObj)
