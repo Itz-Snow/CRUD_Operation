@@ -1,10 +1,10 @@
-
+import CreateUser from './pages/CreateUser'
+import UserInfo from './components/userInfo'
 
 function App() {
     return (
-    <div className="App">
-      <h1>Welcome to the React User App</h1>
-      <p>This is a simple application to demonstrate React and Redux.</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-800">
+      <CreateUser />
     </div>
 )}
 
