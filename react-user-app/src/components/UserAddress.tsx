@@ -1,43 +1,58 @@
-export default function UserContact() {
+export default function UserAddress() {
     return (
         <>
-            {/* Email */}
+            {/* Street Address */}
             <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Email
-            </label>
-            <input
-                type="email"
-                className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"
-                placeholder="Example123@gmail.com"
-                required
-            />
-            {/* Phone Number */}
-            <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Phone Number
-            </label>
-            <input
-                type="tel"
-                className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"                placeholder="Phone Number"
-                required
-            />
-            {/* Fax optional */}
-            <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Fax
+                Street Address
             </label>
             <input
                 type="text"
                 className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"
-                placeholder="Fax Number (optional)"
-            /> 
-            {/* Linkedln optional  */}       
+                placeholder="e.g 123 Main St"
+                required
+            />
+            {/* City */}
             <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                LinkedIn URL
+                City
             </label>
             <input
-                type="url"
+                type="text"
                 className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"
-                placeholder="e.g linkedin.com/in/yourprofile (optional)"
-            />    
+                placeholder="City"
+                required
+            />
+            {/* State */}
+            <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                State
+            </label>
+            <input
+                type="text"
+                className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"
+                placeholder="State"
+                required
+            />
+
+            {/* Country */}
+            <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Country
+            </label>
+            <input
+                type="text"
+                className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"
+                placeholder="Country"
+                required
+            />
+
+            {/* Zip Code */}
+            <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Zip Code
+            </label>
+            <input
+                type="text"
+                className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"
+                placeholder="e.g 100001"
+                required
+            />
         </>
     )
-}   
+}

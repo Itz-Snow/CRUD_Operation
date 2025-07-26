@@ -2,12 +2,12 @@ export default function UserAcademic() {
     return (
         <>
         <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Academic Qualification
+            School
         </label>
         <input
             type="text"
-            className="block w-full p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Enter your academic qualification"
+            className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"
+            placeholder="eg. Harvard University"
             required
         />
         </>
