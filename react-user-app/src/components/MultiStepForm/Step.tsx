@@ -1,5 +1,7 @@
 "use client";
+import { useSelector } from "react-redux";
 import type { StepType } from "../../types/UserTypes";
+import type { RootState } from "../../app/store";
 
 type StepProps = {
   step: StepType;
@@ -7,8 +9,10 @@ type StepProps = {
 
 // Step component that displays the step number and title
 export default function Step({ step }: StepProps) {
-  const { number, title } = step;
-  const currentStep = 1; // This should be replaced with the actual current step from your state management
+
+  const { number, title } = step
+  const currentStep = useSelector((store : RootState) => store.user.currentStep)
+  
   return (
     <div className="flex flex-col md:flex-row items-center gap-[0.75rem] ">
       <div

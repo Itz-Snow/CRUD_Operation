@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'htttp://localhost:3000/api/users';
+const API_URL = 'http://localhost:3000/api/users';
 
 export const createUser = (userData : any) => {
     return axios.post(API_URL, userData)

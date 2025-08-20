@@ -1,12 +1,27 @@
-import { ChevronLast, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSelector,useDispatch  } from "react-redux";
+import { type RootState } from "../../app/store";
+import { setCurrentStep } from "../../features/user/userSlice";
 
+
+
+// NavButtons component for multi-step form navigation
+// Displays Previous and Next buttons based on the current step
+// Uses Lucide icons for navigation arrows
 export default function NavButtons() {
-  const currentStep = 1
+  
+  const currentStep = useSelector((store : RootState) => store.user.currentStep)
+  const dispatch = useDispatch()
+  function handlePrevious() {
+    // Logic to handle going to the previous step
+    dispatch(setCurrentStep(currentStep - 1))
+  }
   
   return (
     <div className="flex justify-between items-center">
       {currentStep > 1 && (
         <button
+          onClick={handlePrevious}
           type="button"
           className="inline-flex items-center px-5 py-2 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-slate-900 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-700"
         >
@@ -18,9 +33,7 @@ export default function NavButtons() {
         type="submit"
         className="inline-flex items-center px-5 py-2 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-slate-900 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-700"
       >
-        <span>
-          Next
-        </span>
+        <span> {currentStep === 3 ? "Confirm and Submit" : "Next" } </span>
         <ChevronRight className="w-5 h-5 ml-2" />
       </button>
     </div>

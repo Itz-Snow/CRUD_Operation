@@ -7,7 +7,7 @@ export const createUser =
     createAsyncThunk('user/create', async (userData: any) =>{
         const response = await userApi.createUser(userData)
         return response.data
-    })
+    }) 
 
 export const fetchUsers =
     createAsyncThunk('user/fetchAll', async () => {
@@ -35,9 +35,11 @@ export const deleteUser =
 
 interface UserState {
     users: any[]; 
-    currentUser: any | null; 
+    currentUser: any | null;
     loading: boolean;
     error: string | null;
+    formData: Record<string, any>; // holds stepwise form data before final submit
+    currentStep: number; // tracks the current step in the multi-step form
 }
 
 // Initial State
@@ -46,6 +48,8 @@ const initialState: UserState = {
     currentUser: null,
     loading: false,
     error: null,
+    currentStep: 1,
+    formData: {},
 };
 
 // User Slice definition
@@ -55,7 +59,18 @@ const userSlice = createSlice({
     reducers: {
         clearCurrentUser: (state) => {
             state.currentUser = null;
-        }
+        },
+
+        setCurrentStep: (state, action: PayloadAction<number>) => {
+            state.currentStep = action.payload;
+        },
+
+        updateFormData: (state, action: PayloadAction<Record<string, any>>) => {
+            state.formData = {
+                ...state.formData,
+                ...action.payload,
+        };
+  },
     },
     extraReducers: (builder) => {
         builder
@@ -141,5 +156,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { clearCurrentUser } = userSlice.actions
+export const { clearCurrentUser, setCurrentStep, updateFormData } = userSlice.actions
 export default userSlice.reducer

@@ -1,55 +1,7 @@
 
-import Steps from '../components/MultiStepForm/Steps'
-import StepForm from '../components/MultiStepForm/StepForm';
+import Steps from '../components/MultistepForm/Steps'
+import StepForm from '../components/MultistepForm/StepForm';
 import type { StepType} from '../types/UserTypes'
-import NavButtons from '../components/MultiStepForm/NavButtons';
-
-// export type FormData = {
-//   //  User Info
-//   profilePhoto: File | null;
-//   firstName: string;
-//   lastName: string;
-//   dob: string;
-//   occupation: string;
-//   gender: string;
-
-//   //  Contact
-//   email: string;
-//   phoneNumber: string;
-//   fax?: string;
-//   linkedInUrl?: string;
-
-//   // 🏡 Step 2b - Address
-//   address: string;
-//   city: string;
-//   state: string;
-//   country: string;
-//   zipCode: string;
-
-//   //  Academic Background
-//   academics: string[] // list of past schools
-// }
-
-// const INITIAL_DATA : FormData = {
-
-//     profilePhoto: null,   
-//     firstName: '',
-//     lastName: '',
-//     dob: '',
-//     occupation: '',
-//     gender: '',
-//     email: '',
-//     phoneNumber: '',
-//     fax: '',
-//     linkedInUrl: '',
-//     address: '',
-//     city: '',   
-//     state: '',
-//     country: '',
-//     zipCode: '',
-//     academics: []
-// }
-
 
 
 export default function CreateUser() {
