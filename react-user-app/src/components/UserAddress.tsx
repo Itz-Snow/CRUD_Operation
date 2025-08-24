@@ -2,18 +2,26 @@ import { useFormContext } from "react-hook-form";
 import type { StepTwoFormValues } from "./StepTwo";
 
 export default function UserAddress() {
-  const { register, formState: { errors } } = useFormContext<StepTwoFormValues>();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<StepTwoFormValues>();
+
+  const inputClass =
+    "block w-full text-sm text-gray-800 bg-gray-100 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 px-3 py-2";
 
   return (
     <>
       {/* Street Address */}
       <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Street Address
+        Street Address *
       </label>
       <input
         type="text"
-        {...register("address.street", { required: "Street address is required" })}
-        className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border border-[#d1d5db] focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-2 h-[30px]"
+        {...register("address.street", {
+          required: "Street address is required",
+        })}
+        className={inputClass}
         placeholder="e.g 123 Main St"
       />
       {errors.address?.street && (
@@ -27,7 +35,7 @@ export default function UserAddress() {
       <input
         type="text"
         {...register("address.city", { required: "City is required" })}
-        className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border border-[#d1d5db] focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-2 h-[30px]"
+        className={inputClass}
         placeholder="City"
       />
       {errors.address?.city && (
@@ -36,12 +44,12 @@ export default function UserAddress() {
 
       {/* State */}
       <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        State
+        State *
       </label>
       <input
         type="text"
         {...register("address.state", { required: "State is required" })}
-        className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border border-[#d1d5db] focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-2 h-[30px]"
+        className={inputClass}
         placeholder="State"
       />
       {errors.address?.state && (
@@ -50,12 +58,12 @@ export default function UserAddress() {
 
       {/* Country */}
       <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Country
+        Country *
       </label>
       <input
         type="text"
         {...register("address.country", { required: "Country is required" })}
-        className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border border-[#d1d5db] focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-2 h-[30px]"
+        className={inputClass}
         placeholder="Country"
       />
       {errors.address?.country && (
@@ -64,16 +72,18 @@ export default function UserAddress() {
 
       {/* Postal Code */}
       <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Postal Code
+        Postal Code *
       </label>
       <input
         type="text"
-        {...register("address.postalCode", { required: "Postal code is required" })}
-        className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border border-[#d1d5db] focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-2 h-[30px]"
+        {...register("address.zipCode", {
+          required: "Postal code is required",
+        })}
+        className={inputClass}
         placeholder="e.g 100001"
       />
-      {errors.address?.postalCode && (
-        <p className="text-red-500 text-xs">{errors.address.postalCode.message}</p>
+      {errors.address?.zipCode && (
+        <p className="text-red-500 text-xs">{errors.address.zipCode.message}</p>
       )}
     </>
   );

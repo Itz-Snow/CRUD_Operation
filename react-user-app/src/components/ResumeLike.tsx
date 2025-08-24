@@ -10,7 +10,6 @@ const StepThreeResume: React.FC = () => {
     return <p className="text-center text-gray-500">No data available</p>;
   }
 
-
   const { 
     profilePhoto, 
     firstName, 
@@ -23,8 +22,6 @@ const StepThreeResume: React.FC = () => {
     academic 
   } = formData;
 
-  const onSubmit = (data: FormData) => {
-  }
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">

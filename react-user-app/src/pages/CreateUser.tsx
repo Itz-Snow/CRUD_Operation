@@ -21,11 +21,11 @@ export default function CreateUser() {
 ]
 
     return (
-            <div className="mx-auto w-[100%] max-w-[64rem] p-[1rem] bg-[#ffffff] border border-[#e5e7eb] rounded-[0.5rem] shadow-custom-md sm:p-[1rem] md:p-[1.5rem] dark:bg-[#1f2937] dark:border-[#374151] grid grid-cols-12 gap-4 min-h-screen">
+            <div className="mx-auto w-full max-w-5xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-4 md:p-6 dark:bg-gray-800 dark:border-gray-700 grid grid-cols-12 gap-4 min-h-screen">
                 {/* steps */}
-                <Steps steps ={steps}/>
+                <Steps steps={steps} className="col-span-12 md:col-span-4" />
                 {/* form */}
-                <div className="rounded-[0.5rem] col-span-[100%] md:col-span-8">
+                <div className="rounded-[0.5rem] col-span-12 md:col-span-8">
                     <StepForm />
                 </div>
             </div>

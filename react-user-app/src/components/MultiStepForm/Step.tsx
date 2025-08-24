@@ -1,4 +1,3 @@
-"use client";
 import { useSelector } from "react-redux";
 import type { StepType } from "../../types/UserTypes";
 import type { RootState } from "../../app/store";

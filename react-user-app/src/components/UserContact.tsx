@@ -2,18 +2,27 @@ import { useFormContext } from "react-hook-form";
 import type { StepTwoFormValues } from "./StepTwo";
 
 export default function UserContact() {
-  const { register, formState: { errors } } = useFormContext<StepTwoFormValues>();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<StepTwoFormValues>();
+
+  // ✅ Standardized input styles
+  const inputClasses =
+    "block w-full text-sm text-gray-800 bg-gray-100 rounded-lg border border-gray-300 " +
+    "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent " +
+    "dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 px-3 py-2";
 
   return (
     <>
       {/* Email */}
       <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Email
+        Email *
       </label>
       <input
         type="email"
         {...register("contact.email", { required: "Email is required" })}
-        className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"
+        className={inputClasses}
         placeholder="Example123@gmail.com"
       />
       {errors.contact?.email && (
@@ -22,16 +31,20 @@ export default function UserContact() {
 
       {/* Phone Number */}
       <label className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Phone Number
+        Phone Number *
       </label>
       <input
         type="tel"
-        {...register("contact.phoneNumber", { required: "Phone number is required" })}
-        className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"
+        {...register("contact.phoneNumber", {
+          required: "Phone number is required",
+        })}
+        className={inputClasses}
         placeholder="Phone Number"
       />
       {errors.contact?.phoneNumber && (
-        <p className="text-red-500 text-xs">{errors.contact.phoneNumber.message}</p>
+        <p className="text-red-500 text-xs">
+          {errors.contact.phoneNumber.message}
+        </p>
       )}
 
       {/* Fax (optional) */}
@@ -41,7 +54,7 @@ export default function UserContact() {
       <input
         type="text"
         {...register("contact.fax")}
-        className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"
+        className={inputClasses}
         placeholder="Fax Number (optional)"
       />
 
@@ -52,7 +65,7 @@ export default function UserContact() {
       <input
         type="url"
         {...register("contact.linkedInUrl")}
-        className="block w-full text-sm text-[#1f2937] bg-[#f9f9f9] rounded-[0.5rem] border-[1px] border-[#d1d5db] cursor-pointer focus:outline-none dark:text-[#9ca3af] dark:bg-[#374151] dark:border-[#4b5563] dark:placeholder-[#9ca3af] mb-[0.5rem] h-[30px]"
+        className={inputClasses}
         placeholder="e.g linkedin.com/in/yourprofile (optional)"
       />
     </>

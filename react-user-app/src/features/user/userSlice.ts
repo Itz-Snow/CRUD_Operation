@@ -69,8 +69,19 @@ const userSlice = createSlice({
             state.formData = {
                 ...state.formData,
                 ...action.payload,
-        };
-  },
+            }
+        },
+
+        clearFormData: (state) => {
+            state.formData = {};
+            state.currentStep = 1;
+        },
+
+        resetForm: (state) => {
+            state.formData = {};
+            state.currentStep = 1;
+            state.error = null;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -156,5 +167,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { clearCurrentUser, setCurrentStep, updateFormData } = userSlice.actions
+export const { clearCurrentUser, setCurrentStep, updateFormData, resetForm } = userSlice.actions
 export default userSlice.reducer

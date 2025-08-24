@@ -20,7 +20,7 @@ export interface StepTwoFormValues {
     city: string;
     state: string;
     country: string;
-    postalCode: string;
+    zipCode: string;
   };
   academic: Array<{ id: string; value: string }> | string[]; // list of all past schools
 }
