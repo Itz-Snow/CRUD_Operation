@@ -3,7 +3,6 @@ import Steps from '../components/MultistepForm/Steps'
 import StepForm from '../components/MultistepForm/StepForm';
 import type { StepType} from '../types/UserTypes'
 
-
 export default function CreateUser() {
     const steps:StepType[] = [
         {

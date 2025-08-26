@@ -2,9 +2,9 @@ import Step from "./Step";
 import type { StepType } from "../../types/UserTypes";
 
 type StepsProps = {
-  steps: StepType[];
-  className?: string; // 👈 allow optional className
-};
+  steps: StepType[],
+  className?: string
+}
 
 // Displays list of steps horizontally on small screens,vertically on medium+ screens.
 // Takes a prop 'steps' which is an array of objects
