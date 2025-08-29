@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import NavButtons from "./MultistepForm/NavButtons";
+import NavButtons from "./MultiStepForm/NavButtons";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../app/store";
 import { setCurrentStep, updateFormData } from "../features/user/userSlice";

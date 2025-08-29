@@ -1,6 +1,6 @@
 
-import Steps from '../components/MultistepForm/Steps'
-import StepForm from '../components/MultistepForm/StepForm';
+import Steps from '../components/MultiStepForm/Steps'
+import StepForm from '../components/MultiStepForm/StepForm';
 import type { StepType} from '../types/UserTypes'
 
 export default function CreateUser() {

@@ -1,12 +1,10 @@
-
 import { useState } from "react";
 
 interface PasswordModalProps {
   onClose: () => void;
-  onLogin: (password: string) => void;
+  onLogin: (password: string) => void; // ✅ use this consistently
 }
 
-// Simple modal for password input
 export default function PasswordModal({ onClose, onLogin }: PasswordModalProps) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

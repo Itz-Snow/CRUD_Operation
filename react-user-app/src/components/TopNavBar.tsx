@@ -26,7 +26,7 @@ export default function TopNavbar() {
       setShowModal(false);
       navigate("/users");
     } else {
-      // You can extend this later to show toast or pass error handling back
+      
       alert("Incorrect password");
     }
   };

@@ -5,7 +5,7 @@ import { type RootState } from "../app/store";
 import UserContact from "./UserContact";
 import UserAddress from "./UserAddress";
 import UserAcademic from "./UserAcademic";
-import NavButtons from "./MultistepForm/NavButtons";
+import NavButtons from "./MultiStepForm/NavButtons";
 
 // Define types for your form data
 export interface StepTwoFormValues {

@@ -1,4 +1,4 @@
-import NavButtons from "./MultistepForm/NavButtons";
+import NavButtons from "./MultiStepForm/NavButtons";
 import React from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../app/store";
