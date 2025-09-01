@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Use deployed backend as base
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL + "/api/users" ;
 
 export const createUser = (userData: any) => {
   return axios.post(API_BASE_URL, userData);
