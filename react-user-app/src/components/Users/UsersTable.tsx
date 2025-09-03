@@ -11,9 +11,11 @@ type User = {
 
 interface Props {
   users: User[];
+  onEdit: (user: User) => void;
+  onDelete: (userId: string) => void
 }
 
-export default function UsersTable({ users }: Props) {
+export default function UsersTable({ users, onEdit, onDelete }: Props) {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full border border-gray-300 rounded-lg shadow-sm">
@@ -55,7 +57,7 @@ export default function UsersTable({ users }: Props) {
                 <td className="px-4 py-2 border-b text-center space-x-2">
                   {/* ✏️ Edit */}
                   <button
-                    onClick={() => console.log("Edit", user.id)}
+                    onClick={() => onEdit(user)}
                     className="p-2 rounded bg-blue-500 text-white hover:bg-blue-600"
                   >
                     <Pencil size={16} />
@@ -63,7 +65,7 @@ export default function UsersTable({ users }: Props) {
 
                   {/* ❌ Delete */}
                   <button
-                    onClick={() => console.log("Delete", user.id)}
+                    onClick={() => onDelete(user.id)}
                     className="p-2 rounded bg-red-500 text-white hover:bg-red-600"
                   >
                     <Trash2 size={16} />

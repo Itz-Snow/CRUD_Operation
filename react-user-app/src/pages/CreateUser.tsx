@@ -2,21 +2,18 @@
 import Steps from '../components/MultiStepForm/Steps'
 import StepForm from '../components/MultiStepForm/StepForm';
 import type { StepType} from '../types/UserTypes'
+import  { useSelector } from 'react-redux';
+import type { RootState } from '../app/store';
 
 export default function CreateUser() {
+
+    const currentUser = useSelector((store: RootState) => store.user.currentUser);
+    const isEditMode = Boolean(currentUser);
+
     const steps:StepType[] = [
-        {
-            number : 1,
-            title : "User Info"
-        },
-        {
-            number : 2,
-            title : "User Details"
-        },
-        {
-            number : 3,
-            title : "Confirm and Submit"
-        },
+        { number : 1,title : "User Info"},
+        { number : 2,title : "User Details"},
+        { number : 3,title: isEditMode ? "Review & Update" : "Confirm and Submit"  },
 ]
 
     return (

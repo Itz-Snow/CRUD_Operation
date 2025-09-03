@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import * as userApi from '../../services/userApi.ts'
+import type { User } from '../../types/UserTypes.ts'
 
 // Async Thunks for API Calls 
 export const createUser = 
@@ -70,6 +71,10 @@ const userSlice = createSlice({
                 ...state.formData,
                 ...action.payload,
             }
+        },
+
+        setCurrentUser(state, action: PayloadAction<User | null>) {
+            state.currentUser = action.payload;
         },
 
         clearFormData: (state) => {
@@ -167,5 +172,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { clearCurrentUser, setCurrentStep, updateFormData, resetForm } = userSlice.actions
+export const { clearCurrentUser, setCurrentStep, updateFormData,setCurrentUser, resetForm } = userSlice.actions
 export default userSlice.reducer
