@@ -44,11 +44,11 @@ export class UsersService {
   async findOne(id: number) {
     const user =  await this.databaseService.userInfoTB.findUnique({
       where: { id, },
-      // include: { 
-      //   contact: true, 
-      //   address: true, 
-      //   academics: true 
-      // } 
+      include: { 
+        contact: true, 
+        address: true, 
+        academics: true 
+      } 
     })
     if (!user) {
       throw new NotFoundException(`User not found`)
