@@ -27,11 +27,11 @@ export class UsersService {
   // It includes related data such as contact, address, and academics.
   async findAll() {
     const user = await this.databaseService.userInfoTB.findMany({
-      // include: { 
-      //   contact: true, 
-      //   address: true, 
-      //   academics: true 
-      // } 
+      include: { 
+        contact: true, 
+        address: true, 
+        academics: true 
+      } 
     })
     if (!user || user.length === 0) {
       throw new NotFoundException(`No users found`)
