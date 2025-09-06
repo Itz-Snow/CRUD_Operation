@@ -55,21 +55,55 @@ export class UsersService {
     }
     return user
   }
-
   // The update method updates a user's information based on their ID.
-  async update(id: number, updateUserDto: Prisma.UserInfoTBUpdateInput) {
+async update(id: number, updateUserDto: Prisma.UserInfoTBUpdateInput) {
   try {
     return await this.databaseService.userInfoTB.update({
       where: { id },
-      data: updateUserDto,
+      data: {
+        profilePhoto: updateUserDto.profilePhoto,
+        firstName: updateUserDto.firstName,
+        lastName: updateUserDto.lastName,
+        dob: updateUserDto.dob,
+        occupation: updateUserDto.occupation,
+        gender: updateUserDto.gender,
+
+        // Nested update instead of overwrite
+        contact: updateUserDto.contact? {
+              update: {
+                email: updateUserDto.contact['email'] as string,
+                phoneNumber: updateUserDto.contact['phoneNumber'] as string,
+                fax: updateUserDto.contact['fax'] as string,
+                linkedInUrl: updateUserDto.contact['linkedInUrl'] as string,
+              },
+        } : undefined,
+
+        address: updateUserDto.address? {
+              update: {
+                address: updateUserDto.address['address'] as string,
+                city: updateUserDto.address['city'] as string,
+                state: updateUserDto.address['state'] as string,
+                country: updateUserDto.address['country'] as string,
+                zipCode: updateUserDto.address['zipCode'] as string,
+              },
+        } : undefined,
+
+        academics: updateUserDto.academics? {
+              update: {
+                schools: updateUserDto.academics['schools'] as string[],
+              },
+        } : undefined,
+      },
+      include: { contact: true, address: true, academics: true }, // return full updated user
     });
-  } catch (error) {
-    if (error.code === 'P2025') { // Record to update not found
-      throw new NotFoundException(`User with ID ${id} not found`)
+  } catch (error: any) {
+    if (error.code === 'P2025') {
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
     throw error;
   }
 }
+
 
   // The remove method deletes a user based on their ID.
   async remove(id: number) {
