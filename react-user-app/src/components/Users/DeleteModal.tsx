@@ -1,11 +1,10 @@
-// ✅ NEW FILE: components/common/DeleteModal.tsx
 import { X } from "lucide-react";
 
 interface DeleteModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  userId?: string;
+  userId?: number | string; // Optional userId to display in the modal
 }
 
 export default function DeleteModal({ isOpen, onClose, onConfirm, userId }: DeleteModalProps) {

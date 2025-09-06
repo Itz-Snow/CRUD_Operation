@@ -4,6 +4,8 @@ import { fetchUsers, setCurrentUser, updateFormData, deleteUser } from "../featu
 import UsersTable from "../components/Users/UsersTable";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../components/Users/DeleteModal";
+import type { User } from "../types/UserTypes";
+import { transformBackendToFormData } from "../utils/transform";
 import toast from "react-hot-toast"; 
 
 
@@ -15,7 +17,7 @@ export default function UsersList() {
 
   // Modal state
   const [showDeleteModal, setShowDeleteModal] = useState(false); 
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(null); 
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null); 
 
   // Fetch users when page loads
   useEffect(() => {
@@ -25,13 +27,14 @@ export default function UsersList() {
   // Handles Edit action
   function handleEdit(user: any) {
     console.log("User Id", user.id )
+    user = transformBackendToFormData(user);
     dispatch(setCurrentUser(user));
     dispatch(updateFormData(user));
     navigate("/"); 
   }
 
   // Trigger modal before deleting
-  function confirmDelete(userId: string) {
+  function confirmDelete(userId: number) {
     setSelectedUserId(userId);
     setShowDeleteModal(true);
   }
@@ -40,7 +43,7 @@ export default function UsersList() {
   async function handleDeleteConfirmed() {
     if (!selectedUserId) return;
     try {
-      await dispatch(deleteUser(selectedUserId)).unwrap();
+      await dispatch(deleteUser(String(selectedUserId))).unwrap();
       toast.success("User deleted successfully!");
     } catch (error) {
       toast.error("Failed to delete user. Try again.");
@@ -51,6 +54,12 @@ export default function UsersList() {
     }
   }
 
+  // Handle View action
+  function handleView(user: User) {
+    console.log("Viewing user:", user);
+    dispatch(setCurrentUser(user));
+    navigate(`/view`);
+  }
   return (
     <div className="max-w-5xl mx-auto mt-10 p-6 bg-white shadow rounded-lg">
       <h1 className="text-2xl font-semibold mb-6">Users Management</h1>
@@ -58,7 +67,8 @@ export default function UsersList() {
       {loading ? (
         <p className="text-center text-gray-500">Loading users...</p>
       ) : (
-        <UsersTable users={users} onEdit= {handleEdit} onDelete={confirmDelete} />
+        <UsersTable users={users} onEdit= {handleEdit} onDelete={confirmDelete} 
+        onView={handleView} />
       )}
 
        {/*Renders delete Confirmation Modal*/}

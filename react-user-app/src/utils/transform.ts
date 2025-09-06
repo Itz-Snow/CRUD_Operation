@@ -32,3 +32,32 @@ export const transformFormDataForBackend = (formData: any) => {
     }
   };
 };
+
+// Function to transform backend data to your form format
+export function transformBackendToFormData(user: any) {
+  return {
+    id: user.id,
+    profilePhoto: user.profilePhoto,
+    firstName: user.firstName,
+    lastName: user.lastName,
+
+    // strip time part so <input type="date" /> accepts it
+    dob: user.dob ? user.dob.split("T")[0] : "",
+
+    occupation: user.occupation,
+    gender: user.gender,
+    contact: user.contact || {},
+
+    address: user.address
+      ? {
+          street: user.address.address || "", 
+          city: user.address.city || "",
+          state: user.address.state || "",
+          country: user.address.country || "",
+          zipCode: user.address.zipCode || "", 
+        }
+      : {},
+
+    academic: user.academics?.schools || [],
+  };
+}

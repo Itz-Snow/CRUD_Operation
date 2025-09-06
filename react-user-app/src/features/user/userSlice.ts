@@ -36,7 +36,7 @@ export const deleteUser =
 
 interface UserState {
     users: any[]; 
-    currentUser: any | null;
+    currentUser: User | null;
     loading: boolean;
     error: string | null;
     formData: Record<string, any>; // holds stepwise form data before final submit
@@ -160,9 +160,9 @@ const userSlice = createSlice({
             .addCase(deleteUser.fulfilled, (state, action: PayloadAction<string>) =>{
                 state.loading = false;
                 state.users = state.users.filter(user => user.id !== action.payload);
-                if (state.currentUser && state.currentUser.id === action.payload) {
+                if (state.currentUser && String(state.currentUser.id) === action.payload) {
                     state.currentUser = null;
-                }
+                } 
             })
             .addCase(deleteUser.rejected, (state, action) => {
                 state.loading = false;

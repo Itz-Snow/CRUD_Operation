@@ -1,25 +1,30 @@
-
 export interface Contact {
+  id: number;
   email: string;
   phoneNumber: string;
   fax?: string;
   linkedInUrl?: string;
+  userId: number;
 }
 
 export interface Address {
+  id: number;
   address: string;
   city: string;
   state: string;
   country: string;
   zipCode: string;
+  userId: number;
 }
 
 export interface Academics {
+  id: number;
   schools: string[];
+  userId: number;
 }
 
 export interface User {
-  id: string;
+  id: number;
   profilePhoto: string; // stored as URL string
   firstName: string;
   lastName: string;
@@ -38,9 +43,9 @@ export interface UserRequest {
   dob: string;
   occupation: string;
   gender: string;
-  contact: Contact;
-  address: Address;
-  academics: Academics;
+  contact: Omit<Contact, "id" | "userId">;  // request body doesn't need DB ids
+  address: Omit<Address, "id" | "userId">;
+  academics: Omit<Academics, "id" | "userId">;
 }
 
 export interface UserState {

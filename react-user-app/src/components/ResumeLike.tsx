@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../app/store";
 
 const StepThreeResume: React.FC = () => {
-  const formData = useSelector((state: RootState) => state.user.formData);
+  const {formData} = useSelector((state: RootState) => state.user);
 
   if (!formData) {
     return <p className="text-center text-gray-500">No data available</p>;

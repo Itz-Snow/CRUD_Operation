@@ -1,21 +1,17 @@
 import { Pencil, Trash2, Eye } from "lucide-react";
+import  type {User} from "../../types/UserTypes";
 
-type User = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  occupation: string;
-  gender: string;
-};
+
 
 interface Props {
   users: User[];
   onEdit: (user: User) => void;
-  onDelete: (userId: string) => void
+  onDelete: (userId: number) => void
+  onView: (user: User) => void
 }
 
-export default function UsersTable({ users, onEdit, onDelete }: Props) {
+export default function UsersTable({ users, onEdit, onDelete, onView }: Props)
+{
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full border border-gray-300 rounded-lg shadow-sm">
@@ -45,7 +41,7 @@ export default function UsersTable({ users, onEdit, onDelete }: Props) {
                 </td>
 
                 {/* Email */}
-                <td className="px-4 py-2 border-b">{user.email}</td>
+                <td className="px-4 py-2 border-b">{user.contact?.email}</td>
 
                 {/* Occupation */}
                 <td className="px-4 py-2 border-b">{user.occupation}</td>
@@ -73,7 +69,7 @@ export default function UsersTable({ users, onEdit, onDelete }: Props) {
 
                   {/* 👁 View */}
                   <button
-                    onClick={() => console.log("View", user.id)}
+                    onClick={() => onView(user)}
                     className="p-2 rounded bg-gray-500 text-white hover:bg-gray-600"
                   >
                     <Eye size={16} />
