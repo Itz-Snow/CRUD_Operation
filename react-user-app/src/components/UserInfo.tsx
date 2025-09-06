@@ -6,7 +6,8 @@ import { setCurrentStep, updateFormData } from "../features/user/userSlice";
 import { useState } from "react";
 
 interface StepOneFormValues {
-  profilePhoto: FileList;
+  // Allow string (prefilled URL) or FileList (new upload)
+  profilePhoto: FileList | string; 
   firstName: string;
   lastName: string;
   dob: string;
@@ -15,9 +16,13 @@ interface StepOneFormValues {
 }
 
 export default function UserInfo() {
+  
   const dispatch = useDispatch();
   const { currentStep, formData } = useSelector((store: RootState) => store.user);
   const [uploading, setUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(
+    typeof formData?.profilePhoto === "string" ? formData.profilePhoto : null
+  );
 
   const {
     register,
@@ -25,7 +30,7 @@ export default function UserInfo() {
     formState: { errors },
   } = useForm<StepOneFormValues>({
     defaultValues: {
-      ...formData,
+      ...formData, // Prefill all values from Redux (edit mode)
     },
   });
 
@@ -58,6 +63,7 @@ export default function UserInfo() {
     return data.secure_url;
   };
 
+  // Handle submit
   async function processFormData(data: StepOneFormValues) {
     const { profilePhoto, ...restData } = data;
     setUploading(true);
@@ -65,9 +71,14 @@ export default function UserInfo() {
     try {
       let profilePhotoUrl = null;
 
-      if (profilePhoto?.length > 0) {
+      // Case 1: user uploads a new file
+      if (profilePhoto && typeof profilePhoto !== "string" && profilePhoto.length > 0) {
         const file = profilePhoto[0];
         profilePhotoUrl = await uploadToCloudinary(file);
+      }
+      // Case 2: already has a URL (edit mode)
+      else if (typeof profilePhoto === "string") {
+        profilePhotoUrl = profilePhoto;
       }
 
       dispatch(
@@ -96,25 +107,45 @@ export default function UserInfo() {
         type="file"
         accept="image/*"
         {...register("profilePhoto", {
-          required: "Photo is required",
+          required: !formData?.profilePhoto ? "Photo is required" : false,
           validate: {
             fileType: (files) => {
-              if (!files || files.length === 0) return true;
-              const file = files[0];
+              // ✅ If already a URL string (edit mode), skip validation
+              if (typeof files === "string") return true;
+              if (!files || (files as FileList).length === 0) return true;
+
+              const file = (files as FileList)[0];
               return (
-                file.type.startsWith("image/") || "Please select an image file"
+                file?.type?.startsWith("image/") ||
+                "Please select an image file"
               );
             },
             fileSize: (files) => {
-              if (!files || files.length === 0) return true;
-              const file = files[0];
+              // ✅ If already a URL string, skip size check
+              if (typeof files === "string") return true;
+              if (!files || (files as FileList).length === 0) return true;
+
+              const file = (files as FileList)[0];
               return (
-                file.size <= 5 * 1024 * 1024 || "File must be less than 5MB"
+                (file?.size ?? 0) <= 5 * 1024 * 1024 ||
+                "File must be less than 5MB"
               );
             },
           },
+          onChange: (e) => {
+            const file = (e.target.files as FileList)?.[0];
+            if (file) {
+              setPreviewUrl(URL.createObjectURL(file)); // ✅ Live preview new file
+            }
+          },
         })}
-        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-50 disabled:cursor-not-allowed bg-gray-100 rounded-lg border border-gray-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 px-3 py-2"
+        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 
+          file:rounded-full file:border-0 file:text-sm file:font-semibold 
+          file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 
+          disabled:opacity-50 disabled:cursor-not-allowed 
+          bg-gray-100 rounded-lg border border-gray-300 cursor-pointer 
+          focus:outline-none focus:ring-2 focus:ring-blue-500 
+          dark:bg-gray-700 dark:border-gray-600 px-3 py-2"
         disabled={uploading}
       />
       {errors.profilePhoto && (
@@ -122,6 +153,15 @@ export default function UserInfo() {
       )}
       {uploading && (
         <p className="text-blue-500 text-xs">Uploading photo...</p>
+      )}
+
+      {/* Show preview if available */}
+      {previewUrl && (
+        <img
+          src={previewUrl}
+          alt="Preview"
+          className="mt-2 w-24 h-24 rounded-full object-cover"
+        />
       )}
 
       {/* First Name */}
