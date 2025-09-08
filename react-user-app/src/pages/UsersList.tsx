@@ -43,7 +43,7 @@ export default function UsersList() {
   async function handleDeleteConfirmed() {
     if (!selectedUserId) return;
     try {
-      await dispatch(deleteUser(String(selectedUserId))).unwrap();
+      await dispatch(deleteUser((selectedUserId))).unwrap();
       toast.success("User deleted successfully!");
     } catch (error) {
       toast.error("Failed to delete user. Try again.");
