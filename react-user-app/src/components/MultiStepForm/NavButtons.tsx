@@ -22,7 +22,7 @@ export default function NavButtons() {
     try {
       if (currentUser?.id) {
         // UPDATE mode
-        await dispatch(updateUser({ id: String(currentUser.id), userData: transformedData })).unwrap();
+        await dispatch(updateUser({ id: (currentUser.id), userData: transformedData })).unwrap();
         toast.success("User updated successfully!");
       } else {
         // CREATE mode

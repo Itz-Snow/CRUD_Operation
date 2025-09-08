@@ -17,19 +17,19 @@ export const fetchUsers =
     })
 
 export const fetchUsersById = 
-    createAsyncThunk('user/fetchById', async (id: string ) => {
+    createAsyncThunk('user/fetchById', async (id: number ) => {   
         const response = await userApi.getUserById(id)
         return response.data 
     })
 
 export const updateUser = 
-    createAsyncThunk('user/update', async ({id, userData}: {id: string, userData: any}) => {
+    createAsyncThunk('user/update', async ({id, userData}: {id: number, userData: any}) => {  
         const response = await userApi.updateUser(id, userData)
         return response.data
     })
 
 export const deleteUser =
-    createAsyncThunk('user/delete', async (id: string) => {
+    createAsyncThunk('user/delete', async (id: number) => {   
         await userApi.deleteUser(id)
         return id
     })
@@ -39,8 +39,8 @@ interface UserState {
     currentUser: User | null;
     loading: boolean;
     error: string | null;
-    formData: Record<string, any>; // holds stepwise form data before final submit
-    currentStep: number; // tracks the current step in the multi-step form
+    formData: Record<string, any>; 
+    currentStep: number; 
 }
 
 // Initial State
@@ -157,10 +157,10 @@ const userSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(deleteUser.fulfilled, (state, action: PayloadAction<string>) =>{
+            .addCase(deleteUser.fulfilled, (state, action: PayloadAction<number>) =>{   // 🔥 updated (was string)
                 state.loading = false;
                 state.users = state.users.filter(user => user.id !== action.payload);
-                if (state.currentUser && String(state.currentUser.id) === action.payload) {
+                if (state.currentUser && state.currentUser.id === action.payload) {     // 🔥 updated (removed String conversion)
                     state.currentUser = null;
                 } 
             })

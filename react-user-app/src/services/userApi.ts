@@ -1,24 +1,28 @@
-import axios from 'axios';
+import axios from "axios";
 
-// Use deployed backend as base
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+// Create a new user
 export const createUser = (userData: any) => {
-  return axios.post(API_BASE_URL, userData);
+  return axios.post(`${API_BASE_URL}/api/users`, userData);
 };
 
+// Get all users
 export const getAllUsers = () => {
-  return axios.get(API_BASE_URL);
+  return axios.get(`${API_BASE_URL}/api/users`);
 };
 
-export const getUserById = (id: string) => {
-  return axios.get(`${API_BASE_URL}/${id}`);
+// Get one user by ID
+export const getUserById = (id: number) => {  
+  return axios.get(`${API_BASE_URL}/api/users/${id}`);
 };
 
-export const updateUser = (id: string, userData: any) => {
-  return axios.patch(`${API_BASE_URL}/${id}`, userData);
+// Update user
+export const updateUser = (id: number, userData: any) => {   
+  return axios.put(`${API_BASE_URL}/api/users/${id}`, userData);
 };
 
-export const deleteUser = (id: string) => {
-  return axios.delete(`${API_BASE_URL}/${id}`);
+// Delete user
+export const deleteUser = (id: number) => {   
+  return axios.delete(`${API_BASE_URL}/api/users/${id}`);
 };
